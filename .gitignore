@@ -6,4 +6,4 @@ src/main/java/io/buchin/tictactoe/onethread/
 src/main/resources/
 src/test/
 gradle/
-src/main/java/io/buchin/tictactoe/multithread/test
+/src/main/java/io/buchin/tictactoe/multithread/GameField.java
