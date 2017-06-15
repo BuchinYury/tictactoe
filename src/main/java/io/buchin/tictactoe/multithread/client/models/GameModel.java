@@ -21,11 +21,7 @@ public class GameModel implements ControllerListener{
 
     private ModelListener view;
 
-    public void setView(ModelListener view) {
+    public GameModel(ModelListener view){
         this.view = view;
-    }
-
-    public void initGame(){
-        view.initViewEvent(board);
     }
 }

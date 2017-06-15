@@ -1,16 +1,47 @@
 package io.buchin.tictactoe.multithread.client.views;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import io.buchin.tictactoe.multithread.client.link.listeners.ModelListener;
+import io.buchin.tictactoe.multithread.client.link.listeners.ViewListener;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Created by IBuchin on 13.06.2017.
  */
-public class ConsoleView implements ModelListener{
-//    private int[] board;
+public class ConsoleView implements ModelListener {
+    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private ViewListener controller;
 
+    public ConsoleView(){}
 
+    public void initGame() {
+        getUserName();
 
-    private void printBoard(int[] board){
+    }
+
+    private void getUserName() {
+        printMessage("Enter your UserName to start the game.");
+        printMessage("Username can not be empty!");
+        try {
+            while (true) {
+                String userName = reader.readLine();
+                if (userName.isEmpty()) printMessage("You entered an empty UserName.");
+                else {
+                    printMessage("The search for an opponent has begun");
+                    printMessage("After the finish, the opponent's name will be displayed and the game will start.");
+                    controller.userSetUserName(userName);
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void printBoard(int[] board) {
         System.out.println("     |     |     ");
         for (int i = 0; i < board.length; i++) {
             if (i != 0) {
@@ -30,9 +61,27 @@ public class ConsoleView implements ModelListener{
         System.out.println("     |     |     ");
     }
 
-    @Override
-    public void initViewEvent(int[] board) {
+    private int getNumber(int[] board) {
+        while (true) {
+            try {
+                int n = Integer.parseInt(reader.readLine());
+                if (n >= 0 && n < board.length && board[n] == 0) {
+                    return n;
+                }
+                System.out.println("Choose free cell and enter its number");
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter the number");
+            } catch (IOException e) {
+                System.out.println("Alarma");
+            }
+        }
+    }
 
-        printBoard(board);
+    private void printMessage(String message) {
+        System.out.println(message);
+    }
+
+    public void setController(ViewListener controller) {
+        this.controller = controller;
     }
 }
