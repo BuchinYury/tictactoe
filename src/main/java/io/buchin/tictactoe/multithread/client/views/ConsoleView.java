@@ -1,13 +1,14 @@
 package io.buchin.tictactoe.multithread.client.views;
 
-import io.buchin.tictactoe.multithread.client.link.listener.ModelListener;
-import io.buchin.tictactoe.multithread.client.link.listener.ViewListener;
+import io.buchin.tictactoe.multithread.client.link.listeners.ModelListener;
 
 /**
  * Created by IBuchin on 13.06.2017.
  */
 public class ConsoleView implements ModelListener{
-    private int[] board;
+//    private int[] board;
+
+
 
     private void printBoard(int[] board){
         System.out.println("     |     |     ");
@@ -30,7 +31,8 @@ public class ConsoleView implements ModelListener{
     }
 
     @Override
-    public void initEvent(int[] board) {
+    public void initViewEvent(int[] board) {
+
         printBoard(board);
     }
 }

@@ -1,9 +1,9 @@
 # Created by .ignore support plugin (hsz.mobi)
 .gradle/
 .idea/
-.git/
 build/
 src/main/java/io/buchin/tictactoe/onethread/
 src/main/resources/
 src/test/
 gradle/
+src/main/java/io/buchin/tictactoe/multithread/test
