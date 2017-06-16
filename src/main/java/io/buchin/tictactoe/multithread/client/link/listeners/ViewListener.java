@@ -5,4 +5,10 @@ package io.buchin.tictactoe.multithread.client.link.listeners;
  */
 public interface ViewListener {
     void userSetUserName(String userName);
+
+    void userMove(int userMove);
+
+    void userWaitEnemyMove();
+
+    void playAgain(int n);
 }

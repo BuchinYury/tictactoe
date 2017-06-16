@@ -16,10 +16,38 @@ public class GameController implements ViewListener {
 
     @Override
     public void userSetUserName(String userName) {
-//        model.setUserName(userName);
-        //TODO отправка имени пользователя на сервер и ожидание возвращения имени врага от сервера
+        //TODO отправка имени пользователя на сервер и ожидание возвращения имени и роли врага и роли пользователя от сервера
         String enemyName = "Enemy";
+        int roleUser = 1;
+        int roleEnemy = 2;
+        //TODO
+
+        model.firstChangeState(userName, enemyName, roleUser, roleEnemy);
 
 
+    }
+
+    @Override
+    public void userMove(int userMove) {
+        //TODO отправка хода пользователя на сервер и ожидание ответа от сервера с ходом опонента
+        int enemyMove = 3;
+        //TODO
+
+        model.changeState(userMove, enemyMove);
+
+    }
+
+    @Override
+    public void userWaitEnemyMove() {
+        //TODO запррс хода опонента
+        int enemyMove = 3;
+        //TODO
+        model.changeState(enemyMove);
+    }
+
+    @Override
+    public void playAgain(int n) {
+        if (n == 1) model.playAgain();
+        if (n == 2) System.exit(0);
     }
 }
