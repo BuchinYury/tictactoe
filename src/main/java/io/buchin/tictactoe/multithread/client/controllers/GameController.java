@@ -9,7 +9,7 @@ import io.buchin.tictactoe.multithread.client.link.listeners.ViewListener;
 public class GameController implements ViewListener {
     ControllerListener model;
 
-    public GameController(ControllerListener model) {
+    public GameController(ControllerListener model, String[] args) {
         this.model = model;
     }
 
@@ -20,6 +20,8 @@ public class GameController implements ViewListener {
         String enemyName = "Enemy";
         int roleUser = 1;
         int roleEnemy = 2;
+//        int roleUser = 2;
+//        int roleEnemy = 1;
         //TODO
 
         model.firstChangeState(userName, enemyName, roleUser, roleEnemy);

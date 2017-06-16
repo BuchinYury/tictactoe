@@ -30,13 +30,16 @@ public class ConsoleView implements ModelListener {
         switch (roleUser) {
             case 1:
                 printMessage("You're playing - X.");
+                printMessage("This is a playing field");
                 printBoard(board);
                 printMessage("Select the cell number where you want to make a move.");
                 int userMove = getNumber(board);
+                printMessage("Waiting for the enemies move.");
                 controller.userMove(userMove);
                 break;
             case 2:
                 printMessage("You're playing - O.");
+                printMessage("This is a playing field");
                 printBoard(board);
                 printMessage("When it's your turn to walk, select an unoccupied cell number.");
                 printMessage("Waiting for the enemies move.");
@@ -52,6 +55,7 @@ public class ConsoleView implements ModelListener {
         printBoard(board);
         printMessage("Select the cell number where you want to make a move.");
         int userMove = getNumber(board);
+        printMessage("Waiting for the enemies move.");
         controller.userMove(userMove);
     }
 
@@ -163,7 +167,7 @@ public class ConsoleView implements ModelListener {
 
     private void separateMessage() {
         System.out.println();
-        System.out.println("*******************************************************************************");
+        System.out.println("********************************************************************************");
     }
 
 
