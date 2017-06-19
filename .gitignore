@@ -7,3 +7,5 @@ src/main/resources/
 src/test/
 gradle/
 /src/main/java/io/buchin/tictactoe/multithread/client/maintest/
+/src/main/test/
+src/main/java/io/buchin/tictactoe/multithread/server/tmp/

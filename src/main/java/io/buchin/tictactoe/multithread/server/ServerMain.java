@@ -1,29 +1,48 @@
 package io.buchin.tictactoe.multithread.server;
 
+import io.buchin.tictactoe.multithread.server.models.Party;
+import io.buchin.tictactoe.multithread.server.models.Player;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Created by IBuchin on 13.06.2017.
+ * Created by IBuchin on 19.06.2017.
  */
 public class ServerMain {
-    private static ExecutorService executor = Executors.newFixedThreadPool(2);
-
     public static void main(String[] args) {
+        List<Player> waitToPlay = new CopyOnWriteArrayList<>();
+
         try (ServerSocket server = new ServerSocket(3345)) {
-
-            System.out.println("Server socket created, command console reader for listen to server commands");
-
             while (!server.isClosed()) {
                 Socket client = server.accept();
-                executor.execute(new ClientThread(client));
-                System.out.println("Connection accepted.");
+                Player player = new Player(client);
+                if (waitToPlay.isEmpty()) {
+                    waitToPlay.add(player);
+                } else {
+                    if (new Random().nextBoolean()) {
+                        player.setRole("X");
+
+                        Player enemy = waitToPlay.get(0);
+                        enemy.setRole("O");
+
+                        new Party(player, enemy);
+                    } else {
+                        Player enemy = waitToPlay.get(0);
+                        enemy.setRole("X");
+
+                        player.setRole("O");
+
+                        new Party(enemy, player);
+                    }
+                }
             }
 
-            executor.shutdown();
         } catch (IOException e) {
             e.printStackTrace();
         }

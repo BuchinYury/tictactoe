@@ -9,6 +9,7 @@ import java.net.Socket;
 /**
  * Created by IBuchin on 13.06.2017.
  */
+@SuppressWarnings("uncheked")
 public class GameController implements ViewListener {
     Socket socket;
     ControllerListener model;
@@ -23,15 +24,18 @@ public class GameController implements ViewListener {
 
     @Override
     public void userSetUserName(String userName) {
-        //TODO отправка имени пользователя на сервер и ожидание возвращения имени и роли врага и роли пользователя от сервера
+        //TODO отправка имени пользователя на сервер и ожидание возвращения id партии, имени, роли врага, роли пользователя от сервера
 //        String enemyName = "Enemy";
 //        int roleUser = 1;
 //        int roleEnemy = 2;
         String[] serverResponse = sendToServerUserName(userName);
-        String enemyName = serverResponse[0];
-        int roleUser = Integer.parseInt(serverResponse[1]);
-        int roleEnemy = Integer.parseInt(serverResponse[2]);
         //TODO
+
+        int gameID = Integer.parseInt(serverResponse[0]);
+        String enemyName = serverResponse[1];
+        int roleUser = Integer.parseInt(serverResponse[2]);
+        int roleEnemy = Integer.parseInt(serverResponse[3]);
+
 
         model.firstChangeState(userName, enemyName, roleUser, roleEnemy);
     }
@@ -39,8 +43,8 @@ public class GameController implements ViewListener {
     @Override
     public void userMove(int userMove) {
         //TODO отправка хода пользователя на сервер и ожидание ответа от сервера с ходом опонента
-//        int enemyMove = 3;
-        int enemyMove = sendToServerUserMove(userMove);
+        int enemyMove = 3;
+//        int enemyMove = sendToServerUserMove(userMove);
         //TODO
 
         model.changeState(userMove, enemyMove);
@@ -50,8 +54,8 @@ public class GameController implements ViewListener {
     @Override
     public void userWaitEnemyMove() {
         //TODO запрос хода опонента
-//        int enemyMove = 3;
-        int enemyMove = waitResponseFromServerWithEnemyMove();
+        int enemyMove = 3;
+//        int enemyMove = waitResponseFromServerWithEnemyMove();
         //TODO
         model.changeState(enemyMove);
     }
@@ -59,10 +63,11 @@ public class GameController implements ViewListener {
     @Override
     public void playAgain(int n) {
         if (n == 1) {
-            sayServerWhatUserPlayAgain();
+//            sayServerWhatUserPlayAgain();
             model.playAgain();
         }
         if (n == 2) {
+//            sayServerWhatUserGameEnd();
             try {
                 socket.close();
             } catch (IOException ignored) {}
@@ -70,7 +75,7 @@ public class GameController implements ViewListener {
         }
     }
 
-    private void sendToServerUserName(String userName) {
+    private String[] sendToServerUserName(String userName) {
         try (DataOutputStream oos = new DataOutputStream(socket.getOutputStream());
              DataInputStream ois = new DataInputStream(socket.getInputStream())) {
 
@@ -84,5 +89,6 @@ public class GameController implements ViewListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }

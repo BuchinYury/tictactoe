@@ -7,6 +7,8 @@ import io.buchin.tictactoe.multithread.client.link.listeners.ModelListener;
  * Created by IBuchin on 13.06.2017.
  */
 public class GameModel implements ControllerListener {
+    private int gameID;
+
     private String userName;
     private int userRole;
 
