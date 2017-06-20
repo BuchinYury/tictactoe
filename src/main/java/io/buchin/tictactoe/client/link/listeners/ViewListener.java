@@ -1,4 +1,4 @@
-package io.buchin.tictactoe.multithread.client.link.listeners;
+package io.buchin.tictactoe.client.link.listeners;
 
 /**
  * Created by IBuchin on 14.06.2017.

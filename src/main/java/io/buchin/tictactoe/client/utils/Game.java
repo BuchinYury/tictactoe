@@ -1,8 +1,8 @@
-package io.buchin.tictactoe.multithread.client.utils;
+package io.buchin.tictactoe.client.utils;
 
-import io.buchin.tictactoe.multithread.client.controllers.GameController;
-import io.buchin.tictactoe.multithread.client.models.GameModel;
-import io.buchin.tictactoe.multithread.client.views.ConsoleView;
+import io.buchin.tictactoe.client.controllers.GameController;
+import io.buchin.tictactoe.client.models.GameModel;
+import io.buchin.tictactoe.client.views.ConsoleView;
 
 /**
  * Created by IBuchin on 15.06.2017.

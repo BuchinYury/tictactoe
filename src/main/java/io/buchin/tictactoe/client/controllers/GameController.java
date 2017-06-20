@@ -1,15 +1,18 @@
-package io.buchin.tictactoe.multithread.client.controllers;
+package io.buchin.tictactoe.client.controllers;
 
-import io.buchin.tictactoe.multithread.client.link.listeners.ControllerListener;
-import io.buchin.tictactoe.multithread.client.link.listeners.ViewListener;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import io.buchin.tictactoe.client.link.listeners.ControllerListener;
+import io.buchin.tictactoe.client.link.listeners.ViewListener;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Set;
 
 /**
  * Created by IBuchin on 13.06.2017.
  */
-@SuppressWarnings("uncheked")
+
 public class GameController implements ViewListener {
     Socket socket;
     ControllerListener model;
@@ -24,20 +27,14 @@ public class GameController implements ViewListener {
 
     @Override
     public void userSetUserName(String userName) {
-        //TODO отправка имени пользователя на сервер и ожидание возвращения id партии, имени, роли врага, роли пользователя от сервера
-//        String enemyName = "Enemy";
-//        int roleUser = 1;
-//        int roleEnemy = 2;
         String[] serverResponse = sendToServerUserName(userName);
-        //TODO
 
         int gameID = Integer.parseInt(serverResponse[0]);
         String enemyName = serverResponse[1];
         int roleUser = Integer.parseInt(serverResponse[2]);
         int roleEnemy = Integer.parseInt(serverResponse[3]);
 
-
-        model.firstChangeState(userName, enemyName, roleUser, roleEnemy);
+        model.firstChangeState(gameID, userName, enemyName, roleUser, roleEnemy);
     }
 
     @Override
@@ -79,12 +76,37 @@ public class GameController implements ViewListener {
         try (DataOutputStream oos = new DataOutputStream(socket.getOutputStream());
              DataInputStream ois = new DataInputStream(socket.getInputStream())) {
 
-            //TODO протокол обшения с сервером через JSON
-            oos.writeUTF(userName);
+            // Формируем JSON для отправки на сервер
+            String messageToServer = "{\n" +
+                    "    \"userName\": \"" + userName + "\"\n" +
+                    "}";
+
+            // Отправляем сообщение на сервер
+            oos.writeUTF(messageToServer);
             oos.flush();
 
+            // Получаем ответ в формате JSON
             String in = ois.readUTF();
-            //TODO
+
+            System.out.println(in);
+
+            // Парсим ответ и получаем масив с параметрами
+            JsonElement jelement = new JsonParser().parse(in);
+            Set<String> keyElem = jelement.getAsJsonObject().keySet();
+            String[] result = new String[4];
+
+            for (String key : keyElem){
+                for (int i = 0; i < 4; i++){
+                    String tmp = jelement.getAsJsonObject().get(key).getAsString();
+
+                    if (tmp.equals("X")) tmp = "1";
+                    if (tmp.equals("O")) tmp = "2";
+
+                    result[i] = tmp;
+                }
+            }
+
+            return result;
 
         } catch (IOException e) {
             e.printStackTrace();

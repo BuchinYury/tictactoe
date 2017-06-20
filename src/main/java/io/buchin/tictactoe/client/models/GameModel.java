@@ -1,7 +1,7 @@
-package io.buchin.tictactoe.multithread.client.models;
+package io.buchin.tictactoe.client.models;
 
-import io.buchin.tictactoe.multithread.client.link.listeners.ControllerListener;
-import io.buchin.tictactoe.multithread.client.link.listeners.ModelListener;
+import io.buchin.tictactoe.client.link.listeners.ControllerListener;
+import io.buchin.tictactoe.client.link.listeners.ModelListener;
 
 /**
  * Created by IBuchin on 13.06.2017.
@@ -26,7 +26,8 @@ public class GameModel implements ControllerListener {
     }
 
     @Override
-    public void firstChangeState(String userName, String enemyName, int roleUser, int roleEnemy) {
+    public void firstChangeState(int gameID, String userName, String enemyName, int roleUser, int roleEnemy) {
+        this.gameID = gameID;
         this.userName = userName;
         this.enemyName = enemyName;
         userRole = roleUser;

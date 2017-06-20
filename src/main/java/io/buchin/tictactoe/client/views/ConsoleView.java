@@ -1,7 +1,7 @@
-package io.buchin.tictactoe.multithread.client.views;
+package io.buchin.tictactoe.client.views;
 
-import io.buchin.tictactoe.multithread.client.link.listeners.ModelListener;
-import io.buchin.tictactoe.multithread.client.link.listeners.ViewListener;
+import io.buchin.tictactoe.client.link.listeners.ModelListener;
+import io.buchin.tictactoe.client.link.listeners.ViewListener;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package io.buchin.tictactoe.multithread.client.utils;
+package io.buchin.tictactoe.client.utils;
 
 /**
  * Created by IBuchin on 13.06.2017.
